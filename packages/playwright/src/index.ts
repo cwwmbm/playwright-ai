@@ -8,7 +8,7 @@ export const ai = async (
   config: { page: Page; test: APITestType },
   options?: ExecutionOptions
 ): Promise<any> => {
-  const screenshot = await config.page.screenshot({
+  const initial_screenshot = await config.page.screenshot({
     type: "png",
   });
 
@@ -28,7 +28,7 @@ export const ai = async (
         {
           type: "image",
           source: {
-            data: screenshot.toString("base64"),
+            data: initial_screenshot.toString("base64"),
             media_type: "image/png",
             type: "base64",
           },
@@ -66,7 +66,7 @@ export const ai = async (
     }
 
     messages.push({
-      role:"assistant",
+      role: "assistant",
       content: [
         {
           type: "tool_use",
@@ -80,6 +80,9 @@ export const ai = async (
     console.log("TOOL CALL", toolCall);
 
     if (toolCall.input.action === "screenshot") {
+      let screenshot = await config.page.screenshot({
+        type: "png",
+      });
       messages.push({
         role: "user",
         content: [
