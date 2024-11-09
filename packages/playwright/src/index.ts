@@ -1,7 +1,7 @@
 import { APITestType, Page } from "./types.ts";
 import { callAnthropicComputerUse } from "./anthropic-call.ts";
 import Anthropic from "@anthropic-ai/sdk";
-import { takeAction, ToolCall } from "../../puppeteer-tool-call/src/main.ts";
+import { takeAction, ToolCall } from "../../puppeteer-tool-call/src/index.ts";
 
 export const ai = async (
   task: string,
@@ -53,54 +53,69 @@ export const ai = async (
     const toolCall: {
       name: string;
       type: string;
-      id: string
-      input: ToolCall
-    } = computeUsage.content.find(
-      (c) => c.type === "tool_use"
-    )?.input as {
+      id: string;
+      input: ToolCall;
+    } = computeUsage.content.find((c) => c.type === "tool_use") as {
       name: string;
       type: string;
-      id: string
-      input: ToolCall
+      id: string;
+      input: ToolCall;
     };
     if (!toolCall) {
       throw new Error("No tool call found");
     }
 
-    
     messages.push({
-      role: "user",
+      role:"assistant",
       content: [
         {
           type: "tool_use",
           id: toolCall.id,
-          input: toolCall.,
+          input: toolCall.input,
+          name: toolCall.name,
         },
+      ],
     });
 
+    console.log("TOOL CALL", toolCall);
 
-    if (toolCall.action === "screenshot") {
+    if (toolCall.input.action === "screenshot") {
       messages.push({
         role: "user",
         content: [
           {
-            type: "image",
-            source: {
-              data: screenshot.toString("base64"),
-              media_type: "image/png",
-              type: "base64",
-            },
+            type: "tool_result",
+            tool_use_id: toolCall.id,
+            content: [
+              {
+                type: "image",
+                source: {
+                  data: screenshot.toString("base64"),
+                  media_type: "image/png",
+                  type: "base64",
+                },
+              },
+            ],
           },
         ],
       });
     } else {
-      takeAction(config.page, toolCall);
+      takeAction(config.page, toolCall.input);
       messages.push({
         role: "user",
         content: [
-          
-        ]
-      })
+          {
+            type: "tool_result",
+            tool_use_id: toolCall.id,
+            content: [
+              {
+                type: "text",
+                text: "Success",
+              },
+            ],
+          },
+        ],
+      });
     }
   }
   // const computeUsage = await callAnthropicComputerUse(messages, {
