@@ -1,41 +1,29 @@
-import { APITestType, Page } from "./types.ts";
 import { callAnthropicComputerUse, client } from "./anthropic-call.ts";
 import Anthropic from "@anthropic-ai/sdk";
 import { takeAction, ToolCall } from "../../puppeteer-tool-call/src/index.ts";
 import { BetaTextBlock } from "@anthropic-ai/sdk/src/resources/beta/index.js";
+import { Page, TestType } from "@playwright/test";
 
 export const ai = async (
   task: string,
-  config: { page: Page; test: APITestType }
+  config: { page: Page; test: TestType<any, any> }
 ): Promise<any> => {
   let result = await runTest(config, task);
   if (!result.success) {
     throw new Error(result.message);
-  }else {
+  } else {
     return result;
   }
 };
 
-type ExecutionOptions = {
-  // Specific to the package, sets the max number of steps we'll execute
-  // in parallel when ai() is called with an array of tasks
-  parallelism?: number;
-  // If true, the ai() step will fail immediately once any step fails
-  // rather than waiting for other tasks to resolve.
-  failImmediately?: boolean;
-};
-
 export type AiFixture = {
-  ai: (
-    task: string | string[],
-    options?: ExecutionOptions
-  ) => ReturnType<typeof ai>;
+  ai: (task: string | string[]) => ReturnType<typeof ai>;
 };
 
 export const runTest = async (
-  config: { page: Page; test: APITestType },
+  config: { page: Page; test: TestType<any, any> },
   task: string,
-  options?: {
+  options: {
     maxIterations: number;
   } = {
     maxIterations: 100,
