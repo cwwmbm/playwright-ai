@@ -1,1 +1,1 @@
-export * from "./takeAction.ts";
+export * from "./takeAction";

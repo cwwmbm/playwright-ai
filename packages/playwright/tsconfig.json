@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "target": "ESNext",
+        "module": "ES2022",
+        "strict": false,
+        "skipLibCheck": true,
+        "lib": ["ES2022", "DOM", "ESNext"],
+        "types": ["node"]
+    },
+}
