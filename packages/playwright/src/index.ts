@@ -1,6 +1,7 @@
 import { APITestType, Page } from "./types.ts";
 import { callAnthropicComputerUse } from "./anthropic-call.ts";
 import Anthropic from "@anthropic-ai/sdk";
+import { takeAction, ToolCall } from "../../puppeteer-tool-call/src/main.ts";
 
 export const ai = async (
   task: string,
@@ -8,10 +9,10 @@ export const ai = async (
   options?: ExecutionOptions
 ): Promise<any> => {
   const screenshot = await config.page.screenshot({
-    type: "png"
+    type: "png",
   });
 
-  const messages: Anthropic.Beta.BetaMessageParam[] = [
+  let messages: Anthropic.Beta.BetaMessageParam[] = [
     {
       role: "user",
       content: [
@@ -19,30 +20,95 @@ export const ai = async (
           type: "text",
           text: task,
         },
+      ],
+    },
+    {
+      role: "user",
+      content: [
         {
           type: "image",
           source: {
             data: screenshot.toString("base64"),
             media_type: "image/png",
-            type: 'base64',
+            type: "base64",
           },
         },
       ],
     },
   ];
 
-
-
   const size = config.page.viewportSize();
   if (!size) {
     throw new Error("Viewport size not available");
   }
-  const computeUsage = await callAnthropicComputerUse(messages, {
-    height: size?.height,
-    width: size?.width,
-  });
-  console.log("ALL CONTENT",computeUsage.content);
-  console.log("TEST", computeUsage.content[0])
+
+  // run 20 times
+  for (let i = 0; i < 20; i++) {
+    const computeUsage = await callAnthropicComputerUse(messages, {
+      height: size?.height,
+      width: size?.width,
+    });
+    console.log("ALL CONTENT", computeUsage.content);
+    console.log("TEST", computeUsage.content[0]);
+    const toolCall: {
+      name: string;
+      type: string;
+      id: string
+      input: ToolCall
+    } = computeUsage.content.find(
+      (c) => c.type === "tool_use"
+    )?.input as {
+      name: string;
+      type: string;
+      id: string
+      input: ToolCall
+    };
+    if (!toolCall) {
+      throw new Error("No tool call found");
+    }
+
+    
+    messages.push({
+      role: "user",
+      content: [
+        {
+          type: "tool_use",
+          id: toolCall.id,
+          input: toolCall.,
+        },
+    });
+
+
+    if (toolCall.action === "screenshot") {
+      messages.push({
+        role: "user",
+        content: [
+          {
+            type: "image",
+            source: {
+              data: screenshot.toString("base64"),
+              media_type: "image/png",
+              type: "base64",
+            },
+          },
+        ],
+      });
+    } else {
+      takeAction(config.page, toolCall);
+      messages.push({
+        role: "user",
+        content: [
+          
+        ]
+      })
+    }
+  }
+  // const computeUsage = await callAnthropicComputerUse(messages, {
+  //   height: size?.height,
+  //   width: size?.width,
+  // });
+  // console.log("ALL CONTENT", computeUsage.content);
+  // console.log("TEST", computeUsage.content[0]);
 };
 
 type ExecutionOptions = {

@@ -1,22 +1,23 @@
 import type { Page } from "playwright";
 
+export type ToolCall = {
+	action:
+		| "key"
+		| "type"
+		| "mouse_move"
+		| "left_click"
+		| "left_click_drag"
+		| "right_click"
+		| "middle_click"
+		| "double_click"
+		| "screenshot"
+		| "cursor_position";
+	coordinate?: [number, number];
+	text?: string;
+};
 export async function takeAction(
 	page: Page,
-	action: {
-		action:
-			| "key"
-			| "type"
-			| "mouse_move"
-			| "left_click"
-			| "left_click_drag"
-			| "right_click"
-			| "middle_click"
-			| "double_click"
-			| "screenshot"
-			| "cursor_position";
-		coordinate?: [number, number];
-		text?: string;
-	}
+	action: ToolCall,
 ): Promise<boolean> {
 	try {
 		switch (action.action) {
