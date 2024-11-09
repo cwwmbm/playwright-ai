@@ -7,7 +7,9 @@ export const ai = async (
   config: { page: Page; test: APITestType },
   options?: ExecutionOptions
 ): Promise<any> => {
-  const screenshot = await config.page.screenshot();
+  const screenshot = await config.page.screenshot({
+    type: "png"
+  });
 
   const messages: Anthropic.Beta.BetaMessageParam[] = [
     {
@@ -19,13 +21,28 @@ export const ai = async (
         },
         {
           type: "image",
-          source: screenshot,
+          source: {
+            data: screenshot.toString("base64"),
+            media_type: "image/png",
+            type: 'base64',
+          },
         },
       ],
     },
   ];
 
-  callAnthropicComputerUse(messages);
+
+
+  const size = config.page.viewportSize();
+  if (!size) {
+    throw new Error("Viewport size not available");
+  }
+  const computeUsage = await callAnthropicComputerUse(messages, {
+    height: size?.height,
+    width: size?.width,
+  });
+  console.log("ALL CONTENT",computeUsage.content);
+  console.log("TEST", computeUsage.content[0])
 };
 
 type ExecutionOptions = {

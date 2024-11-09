@@ -5,7 +5,8 @@ const client = new Anthropic({
 });
 
 export const callAnthropicComputerUse = async (
-  messages: Anthropic.Beta.BetaMessageParam[]
+  messages: Anthropic.Beta.BetaMessageParam[],
+  displaySize: { width: number; height: number }
 ): Promise<Anthropic.Beta.Messages.BetaMessage> => {
   const response = await client.beta.messages.create({
     model: "claude-3-5-sonnet-20241022",
@@ -16,8 +17,8 @@ export const callAnthropicComputerUse = async (
       {
         type: "computer_20241022",
         name: "computer",
-        display_width_px: 1024,
-        display_height_px: 768,
+        display_width_px: displaySize.width,
+        display_height_px: displaySize.height,
         display_number: 1,
       },
     ],
