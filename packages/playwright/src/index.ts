@@ -35,7 +35,7 @@ export type AiFixture = {
 export const runTest = async (
   config: { page: Page; test: APITestType },
   task: string,
-  options?: {
+  options: {
     maxIterations: number;
   } = {
     maxIterations: 100,
