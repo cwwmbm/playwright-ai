@@ -1,5 +1,5 @@
 import { beforeEach, describe, it, expect, vi } from 'vitest';
-import { takeAction } from './takeAction';
+import { takeAction } from './takeAction.ts';
 import type { Page } from 'playwright';
 
 describe('takeAction', () => {
