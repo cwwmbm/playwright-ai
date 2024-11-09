@@ -1,17 +1,27 @@
-import { APIPage, APITestType, Page } from "./types.ts";
-import { callAnthropicComputerUse } from "./anthropic-tool-call.ts";
+import { APITestType, Page } from "./types.ts";
+import { callAnthropicComputerUse } from "./anthropic-call.ts";
+import Anthropic from "@anthropic-ai/sdk";
 
 export const ai = async (
-  task: string | string[],
+  task: string,
   config: { page: Page; test: APITestType },
   options?: ExecutionOptions
 ): Promise<any> => {
   const screenshot = await config.page.screenshot();
 
-  const messages = [
+  const messages: Anthropic.Beta.BetaMessageParam[] = [
     {
       role: "user",
-      content: task,
+      content: [
+        {
+          type: "text",
+          text: task,
+        },
+        {
+          type: "image",
+          source: screenshot,
+        },
+      ],
     },
   ];
 
