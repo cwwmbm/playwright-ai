@@ -1,5 +1,5 @@
 import { APIPage, APITestType, Page } from "./types.ts";
-import { callAnthropicComputerUse } from "./anthropic-tool-call.ts";
+import { callAnthropicComputerUse } from "./anthropic-call.ts";
 
 export const ai = async (
   task: string | string[],
