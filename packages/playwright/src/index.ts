@@ -1,11 +1,21 @@
 import { APIPage, APITestType, Page } from "./types.ts";
+import { callAnthropicComputerUse } from "./anthropic-tool-call.ts";
 
 export const ai = async (
   task: string | string[],
   config: { page: Page; test: APITestType },
   options?: ExecutionOptions
 ): Promise<any> => {
-  const screenshort = await config.page.screenshot();
+  const screenshot = await config.page.screenshot();
+
+  const messages = [
+    {
+      role: "user",
+      content: task,
+    },
+  ];
+
+  callAnthropicComputerUse(messages);
 };
 
 type ExecutionOptions = {
