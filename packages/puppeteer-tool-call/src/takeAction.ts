@@ -15,10 +15,7 @@ export type ToolCall = {
 	coordinate?: [number, number];
 	text?: string;
 };
-export async function takeAction(
-	page: Page,
-	action: ToolCall,
-): Promise<boolean> {
+export async function takeAction(page: Page, action: ToolCall): Promise<boolean> {
 	try {
 		switch (action.action) {
 			case "key":
@@ -37,7 +34,8 @@ export async function takeAction(
 				break;
 
 			case "left_click":
-				await page.mouse.click(action.coordinate?.[0] ?? 0, action.coordinate?.[1] ?? 0);
+				await page.mouse.down();
+				await page.mouse.up();
 				break;
 
 			case "left_click_drag":
