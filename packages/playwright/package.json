@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "module": "index.ts",
+  "type": "module",
   "keywords": [],
   "author": "Jacob Zwang <zwang.jacob@gmail.com>",
   "license": "UNLICENSED",
