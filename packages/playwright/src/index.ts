@@ -1,10 +1,12 @@
-import { APIPage, APITestType } from "./types.ts";
+import { APIPage, APITestType, Page } from "./types.ts";
 
 export const ai = async (
   task: string | string[],
-  config: { page: APIPage; test: APITestType },
+  config: { page: Page; test: APITestType },
   options?: ExecutionOptions
-): Promise<any> => {};
+): Promise<any> => {
+  const screenshort = await config.page.screenshot();
+};
 
 type ExecutionOptions = {
   // Specific to the package, sets the max number of steps we'll execute
