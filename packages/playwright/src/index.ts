@@ -1,16 +1,53 @@
 import { APITestType, Page } from "./types.ts";
-import { callAnthropicComputerUse } from "./anthropic-call.ts";
+import { callAnthropicComputerUse, client } from "./anthropic-call.ts";
 import Anthropic from "@anthropic-ai/sdk";
 import { takeAction, ToolCall } from "../../puppeteer-tool-call/src/index.ts";
+import { BetaTextBlock } from "@anthropic-ai/sdk/src/resources/beta/index.js";
 
 export const ai = async (
   task: string,
-  config: { page: Page; test: APITestType },
-  options?: ExecutionOptions
+  config: { page: Page; test: APITestType }
 ): Promise<any> => {
+  let result = await runTest(config, task);
+  if (!result.success) {
+    throw new Error(result.message);
+  }else {
+    return result;
+  }
+};
+
+type ExecutionOptions = {
+  // Specific to the package, sets the max number of steps we'll execute
+  // in parallel when ai() is called with an array of tasks
+  parallelism?: number;
+  // If true, the ai() step will fail immediately once any step fails
+  // rather than waiting for other tasks to resolve.
+  failImmediately?: boolean;
+};
+
+export type AiFixture = {
+  ai: (
+    task: string | string[],
+    options?: ExecutionOptions
+  ) => ReturnType<typeof ai>;
+};
+
+export const runTest = async (
+  config: { page: Page; test: APITestType },
+  task: string,
+  options?: {
+    maxIterations: number;
+  } = {
+    maxIterations: 100,
+  }
+): Promise<{
+  message: string;
+  success: boolean;
+}> => {
   const initial_screenshot = await config.page.screenshot({
     type: "png",
   });
+  const pageSize = config.page.viewportSize();
 
   let messages: Anthropic.Beta.BetaMessageParam[] = [
     {
@@ -43,7 +80,7 @@ export const ai = async (
   }
 
   // run 20 times
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < options.maxIterations; i++) {
     const computeUsage = await callAnthropicComputerUse(messages, {
       height: size?.height,
       width: size?.width,
@@ -62,22 +99,49 @@ export const ai = async (
       input: ToolCall;
     };
     if (!toolCall) {
-      throw new Error("No tool call found");
+      console.log("NO TOOL CALL");
+      const final = await client.beta.messages.create({
+        model: "claude-3-5-sonnet-20241022",
+        tool_choice: undefined,
+        betas: ["computer-use-2024-10-22"],
+        tools: [
+          {
+            // type: "computer_20241022",
+            name: "computer",
+            type: "computer_20241022",
+            display_width_px: pageSize!.width,
+            display_height_px: pageSize!.height,
+            display_number: 1,
+          },
+        ],
+        messages: [
+          ...messages,
+          {
+            role: "user",
+            content: [
+              {
+                type: "text",
+                text: "Please summarize the test with json with two fields, 'success' and 'message'.",
+              },
+            ],
+          },
+        ],
+        max_tokens: 1024,
+      });
+      return JSON.parse((final.content[0] as BetaTextBlock).text);
+    } else {
+      messages.push({
+        role: "assistant",
+        content: [
+          {
+            type: "tool_use",
+            id: toolCall.id,
+            input: toolCall.input,
+            name: toolCall.name,
+          },
+        ],
+      });
     }
-
-    messages.push({
-      role: "assistant",
-      content: [
-        {
-          type: "tool_use",
-          id: toolCall.id,
-          input: toolCall.input,
-          name: toolCall.name,
-        },
-      ],
-    });
-
-    console.log("TOOL CALL", toolCall);
 
     if (toolCall.input.action === "screenshot") {
       let screenshot = await config.page.screenshot({
@@ -121,26 +185,8 @@ export const ai = async (
       });
     }
   }
-  // const computeUsage = await callAnthropicComputerUse(messages, {
-  //   height: size?.height,
-  //   width: size?.width,
-  // });
-  // console.log("ALL CONTENT", computeUsage.content);
-  // console.log("TEST", computeUsage.content[0]);
-};
-
-type ExecutionOptions = {
-  // Specific to the package, sets the max number of steps we'll execute
-  // in parallel when ai() is called with an array of tasks
-  parallelism?: number;
-  // If true, the ai() step will fail immediately once any step fails
-  // rather than waiting for other tasks to resolve.
-  failImmediately?: boolean;
-};
-
-export type AiFixture = {
-  ai: (
-    task: string | string[],
-    options?: ExecutionOptions
-  ) => ReturnType<typeof ai>;
+  return {
+    message: "Max iterations reached",
+    success: false,
+  };
 };
