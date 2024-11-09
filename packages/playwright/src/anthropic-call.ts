@@ -4,12 +4,14 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"], // This is the default and can be omitted
 });
 
-export const callAnthropicComputerUse = async (): Promise<boolean> => {
-  await client.beta.messages.create({
+export const callAnthropicComputerUse = async (
+  messages: Anthropic.Beta.BetaMessageParam[]
+): Promise<Anthropic.Beta.Messages.BetaMessage> => {
+  const response = await client.beta.messages.create({
     model: "claude-3-5-sonnet-20241022",
     max_tokens: 1024,
     betas: ["computer-use-2024-10-22"],
-    messages: [],
+    messages: messages,
     tools: [
       {
         type: "computer_20241022",
@@ -21,5 +23,5 @@ export const callAnthropicComputerUse = async (): Promise<boolean> => {
     ],
   });
 
-  return true;
+  return response;
 };
