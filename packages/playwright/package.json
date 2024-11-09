@@ -1,0 +1,13 @@
+{
+  "name": "playwright-ai",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "module": "index.ts",
+  "keywords": [],
+  "author": "Jacob Zwang <zwang.jacob@gmail.com>",
+  "license": "UNLICENSED"
+}
