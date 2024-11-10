@@ -4,6 +4,8 @@
 		"vitest": "^2.1.4"
 	},
 	"scripts": {
+		"build:clean": "pnpm --filter tests-ai exec rm -rf dist",
+		"build": "pnpm --filter tests-ai build",
 		"demo:svelte-example": "pnpm --filter svelte-example run test",
 		"demo:vite-example": "pnpm --filter vite-example run test"
 	},
