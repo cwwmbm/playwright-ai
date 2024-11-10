@@ -1,9 +1,5 @@
 {
 	"private": true,
-	"dependencies": {
-		"@playwright/test": "^1.48.2",
-		"playwright": "^1.48.2"
-	},
 	"devDependencies": {
 		"vitest": "^2.1.4"
 	},
