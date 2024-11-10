@@ -69,6 +69,7 @@ export const runTest = async (
 
   // run 20 times
   for (let i = 0; i < options.maxIterations; i++) {
+    await config.page.waitForTimeout(500);
     const computeUsage = await callAnthropicComputerUse(messages, {
       height: size?.height,
       width: size?.width,
