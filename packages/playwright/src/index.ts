@@ -67,7 +67,6 @@ export const runTest = async (
     throw new Error("Viewport size not available");
   }
 
-  // run 20 times
   for (let i = 0; i < options.maxIterations; i++) {
     await config.page.waitForTimeout(500);
     const computeUsage = await callAnthropicComputerUse(messages, {
@@ -111,13 +110,14 @@ export const runTest = async (
             content: [
               {
                 type: "text",
-                text: "Please summarize the test with json with two fields, 'success' and 'message'.",
+                text: "Summarize the test execution in JSON format with two keys: 'success' (boolean), and 'message' (string that list all actions taken)."
               },
             ],
           },
         ],
         max_tokens: 1024,
       });
+      console.log("FINAL", final.content);
       return JSON.parse((final.content[0] as BetaTextBlock).text);
     } else {
       messages.push({
