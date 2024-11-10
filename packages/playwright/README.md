@@ -15,4 +15,29 @@ test("click on counter button", async ({ page }) => {
 });
 ```
 
-To configure make sure you have the `ANTHROPIC_API_KEY` set in your environment.
+## Installation
+
+```bash
+npm install --save-dev tests-ai
+```
+
+You'll need to set your Anthropic API key as an environment variable:
+
+```sh
+export ANTHROPIC_API_KEY=your-api-key
+```
+
+Or add it to your `.env` file:
+
+```env
+ANTHROPIC_API_KEY=your-api-key
+```
+
+## Usage
+
+The `ai` function accepts two parameters:
+
+1. A string describing the test action to perform in natural language.
+2. An options object with:
+   - `page`: Playwright Page object
+   - `test`: Playwright Test object
