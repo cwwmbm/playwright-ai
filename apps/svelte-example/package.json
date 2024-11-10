@@ -10,6 +10,9 @@
 		"preview": "vite preview",
 		"check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json"
 	},
+	"dependencies": {
+		"dotenv": "^16.4.5"
+	},
 	"devDependencies": {
 		"@playwright/test": "^1.48.2",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
