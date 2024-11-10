@@ -1,6 +1,7 @@
 {
 	"private": true,
 	"devDependencies": {
+		"playwright": "^1.48.2",
 		"vitest": "^2.1.4"
 	},
 	"scripts": {
