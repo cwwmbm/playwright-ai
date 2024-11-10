@@ -14,3 +14,5 @@ test("click on counter button", async ({ page }) => {
   });
 });
 ```
+
+To configure make sure you have the `ANTHROPIC_API_KEY` set in your environment.
