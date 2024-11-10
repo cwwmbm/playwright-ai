@@ -75,6 +75,7 @@ export const runTest = async (
     });
     console.log("ALL CONTENT", computeUsage.content);
     console.log("TEST", computeUsage.content[0]);
+    
     const toolCall: {
       name: string;
       type: string;
