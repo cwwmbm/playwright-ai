@@ -86,6 +86,7 @@ export const runTest = async (
       id: string;
       input: ToolCall;
     };
+  
     if (!toolCall) {
       console.log("NO TOOL CALL");
       const final = await client.beta.messages.create({
@@ -155,6 +156,7 @@ export const runTest = async (
         ],
       });
     } else {
+      config.page.waitForLoadState("domcontentloaded")
       takeAction(config.page, toolCall.input);
       messages.push({
         role: "user",
