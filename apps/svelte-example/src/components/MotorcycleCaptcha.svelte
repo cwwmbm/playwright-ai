@@ -72,17 +72,17 @@
 		{/if}
 
 		<div class="h-full w-full flex items-center justify-center">
-			<div class="max-w-[600px] w-full flex flex-col gap-4">
+			<div class="max-w-[400px] w-full flex flex-col gap-4">
 				<!-- Header -->
 				<div class="text-center space-y-2">
 					<h1 class="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-pink-200">
 						Motorcycle Quiz
 					</h1>
-					<p class="text-purple-200/80 text-base">Select all motorcycles</p>
+					<p class="text-purple-200/80 text-base">Where is the motorcycle?</p>
 				</div>
 
 				<!-- Image Grid -->
-				<div class="relative mx-auto w-full aspect-square">
+				<div class="relative mx-auto w-full aspect-square border-4 border-white rounded-lg overflow-hidden">
 					<!-- Background Image -->
 					<img src={currentQuestion.image} alt="Background" class="absolute inset-0 w-full h-full object-cover" />
 
@@ -152,7 +152,7 @@
 				</div>
 
 				<!-- Selected Counter -->
-				<div class="text-purple-200/80 text-xs text-center">
+				<div class="text-purple-200/80 text-2xl font-bold text-center">
 					Selected: {selectedIndices.length} / {currentQuestion.correctIndices.length} required
 				</div>
 			</div>
