@@ -1,6 +1,6 @@
 import { beforeEach, describe, it, expect, vi } from "vitest";
-import { takeAction } from "./takeAction";
 import type { Page } from "playwright";
+import { takeAction } from "./takeAction.js";
 
 describe("takeAction", () => {
   let mockPage: Page;

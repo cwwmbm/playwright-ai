@@ -7,16 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@anthropic-ai/sdk':
-        specifier: ^0.32.1
-        version: 0.32.1
-      '@playwright/test':
-        specifier: ^1.48.2
-        version: 1.48.2
-      playwright:
-        specifier: ^1.48.2
-        version: 1.48.2
     devDependencies:
       vitest:
         specifier: ^2.1.4
@@ -128,19 +118,22 @@ importers:
       '@anthropic-ai/sdk':
         specifier: ^0.32.1
         version: 0.32.1
+    devDependencies:
+      '@playwright/test':
+        specifier: ^1.48.2
+        version: 1.48.2
       '@types/node':
         specifier: ^22.9.0
         version: 22.9.0
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.4.5
-    devDependencies:
       tsup:
         specifier: ^8.3.5
         version: 8.3.5(@swc/core@1.9.1)(jiti@1.21.6)(postcss@8.4.47)(typescript@5.6.3)(yaml@2.6.0)
 
   packages/puppeteer-tool-call:
     dependencies:
+      playwright:
+        specifier: ^1.48.2
+        version: 1.48.2
       puppeteer:
         specifier: ^23.7.1
         version: 23.7.1(typescript@5.6.3)

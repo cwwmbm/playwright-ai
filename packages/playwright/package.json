@@ -26,11 +26,11 @@
   "author": "Jacob Zwang <zwang.jacob@gmail.com>",
   "license": "UNLICENSED",
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.32.1",
-    "@types/node": "^22.9.0",
-    "dotenv": "^16.4.5"
+    "@anthropic-ai/sdk": "^0.32.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.48.2",
+    "@types/node": "^22.9.0",
     "tsup": "^8.3.5"
   }
 }
