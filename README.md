@@ -2,6 +2,8 @@
 
 Use Anthropic's Computer use API inside playwright tests.
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ```ts
 import { test } from "@playwright/test";
 import { ai } from "tests-ai";
