@@ -1,36 +1,49 @@
 {
-  "name": "tests-ai",
-  "version": "1.0.3",
-  "description": "",
-  "main": "dist/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsup-node"
-  },
-  "tsup": {
-    "entry": [
-      "src/index.ts"
-    ],
-    "splitting": false,
-    "sourcemap": true,
-    "clean": true,
-    "dts": true,
-    "format": [
-      "esm"
-    ]
-  },
-  "module": "dist/index.js",
-  "type": "module",
-  "types": "dist/index.d.ts",
-  "keywords": [],
-  "author": "Jacob Zwang <zwang.jacob@gmail.com>",
-  "license": "UNLICENSED",
-  "dependencies": {
-    "@anthropic-ai/sdk": "^0.32.1"
-  },
-  "devDependencies": {
-    "@playwright/test": "^1.48.2",
-    "@types/node": "^22.9.0",
-    "tsup": "^8.3.5"
-  }
+	"name": "tests-ai",
+	"version": "1.0.4",
+	"description": "Write tests in natural language. No more brittle selectors.",
+	"main": "dist/index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "tsup-node"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/andytyler/playwright-ai.git"
+	},
+	"bugs": {
+		"url": "https://github.com/andytyler/playwright-ai/issues"
+	},
+	"tsup": {
+		"entry": [
+			"src/index.ts"
+		],
+		"splitting": false,
+		"sourcemap": true,
+		"clean": true,
+		"dts": true,
+		"format": [
+			"esm"
+		]
+	},
+	"module": "dist/index.js",
+	"type": "module",
+	"types": "dist/index.d.ts",
+	"keywords": [
+		"ai",
+		"playwright",
+		"tests",
+		"automation",
+		"testing"
+	],
+	"author": "Andy Tyler <andrewjtyler1@gmail.com>",
+	"license": "MIT",
+	"dependencies": {
+		"@anthropic-ai/sdk": "^0.32.1"
+	},
+	"devDependencies": {
+		"@playwright/test": "^1.48.2",
+		"@types/node": "^22.9.0",
+		"tsup": "^8.3.5"
+	}
 }

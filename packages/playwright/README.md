@@ -17,6 +17,8 @@ test("click on counter button", async ({ page }) => {
 
 ## Installation
 
+![alt text](image-1.png)
+
 ```bash
 npm install --save-dev tests-ai
 ```
