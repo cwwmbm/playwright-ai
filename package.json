@@ -1,14 +1,55 @@
 {
+	"name": "tests-ai",
+	"version": "1.0.4",
 	"private": true,
-	"devDependencies": {
-		"playwright": "^1.48.2",
-		"vitest": "^2.1.4"
-	},
+	"description": "Write tests in natural language. No more brittle selectors.",
+	"main": "dist/index.js",
 	"scripts": {
 		"build:clean": "pnpm --filter tests-ai exec rm -rf dist",
 		"build": "pnpm --filter tests-ai build",
 		"demo:svelte-example": "pnpm --filter svelte-example run test",
 		"demo:vite-example": "pnpm --filter vite-example run test"
 	},
-	"packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903"
+	"packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/andytyler/playwright-ai.git"
+	},
+	"bugs": {
+		"url": "https://github.com/andytyler/playwright-ai/issues"
+	},
+	"tsup": {
+		"entry": [
+			"src/index.ts"
+		],
+		"splitting": false,
+		"sourcemap": true,
+		"clean": true,
+		"dts": true,
+		"format": [
+			"esm"
+		]
+	},
+	"module": "dist/index.js",
+	"type": "module",
+	"types": "dist/index.d.ts",
+	"keywords": [
+		"ai",
+		"playwright",
+		"tests",
+		"automation",
+		"testing"
+	],
+	"author": "Andy Tyler <andrewjtyler1@gmail.com>",
+	"license": "MIT",
+	"dependencies": {
+		"@anthropic-ai/sdk": "^0.32.1"
+	},
+	"devDependencies": {
+		"playwright": "^1.48.2",
+		"vitest": "^2.1.4",
+		"@playwright/test": "^1.48.2",
+		"@types/node": "^22.9.0",
+		"tsup": "^8.3.5"
+	}
 }
