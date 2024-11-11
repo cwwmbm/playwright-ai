@@ -45,3 +45,7 @@ The `ai` function accepts two parameters:
 2. An options object with:
    - `page`: Playwright Page object
    - `test`: Playwright Test object
+
+### Inspiration
+
+Inspired by [Zerostep](https://zerostep.com/).
