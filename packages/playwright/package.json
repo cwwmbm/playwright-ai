@@ -34,7 +34,11 @@
 		"playwright",
 		"tests",
 		"automation",
-		"testing"
+		"testing",
+		"natural language tests",
+		"natural language testing",
+		"puppeteer ai",
+		"playwright ai"
 	],
 	"author": "Andy Tyler <andrewjtyler1@gmail.com>",
 	"license": "MIT",
