@@ -47,6 +47,7 @@
 	},
 	"devDependencies": {
 		"playwright": "^1.48.2",
+		"puppeteer": "^23.7.1",
 		"vitest": "^2.1.4",
 		"@playwright/test": "^1.48.2",
 		"@types/node": "^22.9.0",

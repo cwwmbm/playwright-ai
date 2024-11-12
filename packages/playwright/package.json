@@ -1,7 +1,8 @@
 {
 	"name": "tests-ai",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "Write tests in natural language. No more brittle selectors.",
+
 	"main": "dist/index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",

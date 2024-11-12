@@ -1,8 +1,8 @@
-import { callAnthropicComputerUse, client } from "./anthropic-call.js";
 import Anthropic from "@anthropic-ai/sdk";
-import { takeAction, ToolCall } from "../../puppeteer-tool-call/src/index.js";
 import { BetaTextBlock } from "@anthropic-ai/sdk/src/resources/beta/index.js";
 import { Page, TestType } from "@playwright/test";
+import { callAnthropicComputerUse, client } from "./anthropic-call.js";
+import { takeAction, ToolCall } from "./puppeteer-tool-call/takeAction.js";
 
 export const ai = async (
   task: string,
