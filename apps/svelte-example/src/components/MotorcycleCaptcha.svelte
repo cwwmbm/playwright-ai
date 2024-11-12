@@ -2,7 +2,7 @@
 	const questions = [
 		{
 			image: "/1.png",
-			correctIndices: [10, 11, 14, 15],
+			correctIndices: [10, 11, 14, 1],
 		},
 	];
 
