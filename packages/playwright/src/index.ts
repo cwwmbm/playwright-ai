@@ -3,6 +3,10 @@ import { BetaTextBlock } from "@anthropic-ai/sdk/src/resources/beta/index.js";
 import { Page, TestType } from "@playwright/test";
 import { callAnthropicComputerUse, client } from "./anthropic-call.js";
 import { takeAction, ToolCall } from "./puppeteer-tool-call/takeAction.js";
+import * as dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
 
 export const ai = async (task: string, config: { page: Page; test: TestType<any, any> }): Promise<any> => {
 	let result = await runTest(config, task);

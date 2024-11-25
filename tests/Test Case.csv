@@ -1,0 +1,33 @@
+Test name*,Features,Labels,Platforms,Priority,Automated,Step type*,Step title*,Step expected result,Step options,Include other option,Step scale start,Step scale start label,Step scale end,Step scale end label,Instructions,Focus Areas,Out of scope areas,Execution time (minutes)
+[A] 8 - Email Campaign - Set Goals Page - Add a Goal and try to click on Next with the required fields in blank,"Email Campaign,Set Goals","Functional Testing,Automation Test Case,Flaky",Web,Medium,No,precondition,"Functional Testing:
+
+The purpose of this test case is to Add a Goal on the 'Set Goals' page and validate the App is validating the Required fields",,,,,,,,,,,10
+,,,,,,precondition,"Functional Testing:
+
+The purpose of this test case is to Validate the data is preserved when user go to the next page, then back
+
+* Take a Screenshot of the results for Steps 7 & 8.",,,,,,,,,,,
+,,,,,,precondition,"Prerequisites:
+
+1. Have the Feathr dev_environment URL identified: {{{automation_environment}}}
+2. Identify the Automation_platform_user to execute this test case {{{automation_executionUser}}}
+",,,,,,,,,,,
+,,,,,,passFail,Open the {{{automation_environment}}}  and login with your platform user (prerequisite 2),You should be able to be logged successfully,,,,,,,,,,
+,,,,,,passFail,"On the left side menu bar, click on the Projects section and Select any project already created (take note of it)",'All Marketing'page is displayed,,,,,,,,,,
+,,,,,,passFail,Click on the 'Create' button (right corner),The 'Create a campaign' page is displayed,,,,,,,,,,
+,,,,,,passFail,Click on the 'Single Send' campaign,The 'Create a Campaign' page is displayed,,,,,,,,,,
+,,,,,,passFail,"Introduce any Valid name for the 'Name' field (Automation Run+Day/Month/Year+Random set of characters), then click on the 'Create Campaign' button","- The path:  'Projects > [Name of your project] > Campaigns > [Name of the campaign you introduced]' is properly displayed on the top of the page
+- 'Edit' page is displayed",,,,,,,,,,
+,,,,,,passFail,"Select any of the templates displayed, you can select the 'Blank Email' one.",The user can select any template,,,,,,,,,,
+,,,,,,passFail, Click on the 'Next' button,The 'Configure Details' page is displayed,,,,,,,,,,
+,,,,,,passFail,"On the 'Sender information' section, for the 'From email address' dropdown, select the 'cesar.loera@feathr.co' value",The Verify button should be changed to 'Verified' ,,,,,,,,,,
+,,,,,,passFail,"Make a sure the 'Use contact info from verified email address' checkbox is already checked, if not check it",The 'Use contact info from verified email address' is checked,,,,,,,,,,
+,,,,,,passFail,Click on the 'Next' button,The 'Set Goals' page is displayed,,,,,,,,,,
+,,,,,,passFail,Click on the '+ Goal' Button,"- The 'Group (required)' dropdown, and the 'Goal value (required)' input field are displayed ",,,,,,,,,,
+,,,,,,passFail,Click on the The 'Group (required)' dropdown field > Then click on the '+ Create a Group' button,"Two new fields appear:
+- Name (required) 
+- Goal Group Preset (optional) - dropdown",,,,,,,,,,
+,,,,,,passFail,"Make sure you are leaving the 'Name (required)' empty, Clean the content of the field, then click on the 'Goal Value' field","- the 'Next' button is disabled.
+- the 'Name can't be blank' message appears below the Name (required) field",,,,,,,,,,
+,,,,,,passFail,"Make sure you are leaving the 'Goal Value (required)' empty, Clean the content of the field, then click on the 'Name' field","- the 'Next' button is disabled
+- the 'Please set a value' message appears below the Goal Value (required) field",,,,,,,,,,

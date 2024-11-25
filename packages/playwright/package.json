@@ -43,7 +43,8 @@
 	"author": "Andy Tyler <andrewjtyler1@gmail.com>",
 	"license": "MIT",
 	"dependencies": {
-		"@anthropic-ai/sdk": "^0.32.1"
+		"@anthropic-ai/sdk": "^0.32.1",
+		"dotenv": "^16.4.5"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.48.2",
